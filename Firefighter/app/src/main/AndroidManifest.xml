@@ -12,10 +12,31 @@
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!-- KitKat+ SMS receiver -->
+        <receiver
+            android:name="com.maciejwozny.firefighter.SmsReceiver"
+            android:enabled="@bool/hasKitKat"
+            android:permission="android.permission.BROADCAST_SMS">
+            <intent-filter>
+                <action android:name="android.provider.Telephony.SMS_DELIVER" />
+            </intent-filter>
+        </receiver>
+
+        <!-- Pre-KitKat SMS receiver -->
+        <receiver
+            android:name="com.maciejwozny.firefighter.SmsReceiverLegacy"
+            android:enabled="@bool/preKitKat">
+            <intent-filter>
+                <action android:name="android.provider.Telephony.SMS_RECEIVED" />
+            </intent-filter>
+        </receiver>
+
     </application>
+    <uses-permission android:name="android.permission.RECEIVE_SMS" />
+    <uses-permission android:name="android.permission.READ_SMS" />
 
 </manifest>
