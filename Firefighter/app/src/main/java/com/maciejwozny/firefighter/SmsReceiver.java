@@ -11,6 +11,7 @@ import android.support.v4.app.NotificationCompat;
 import android.telephony.SmsManager;
 import android.telephony.SmsMessage;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
 /**
