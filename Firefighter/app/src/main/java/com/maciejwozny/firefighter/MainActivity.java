@@ -28,7 +28,12 @@ public class MainActivity extends AppCompatActivity {
         requestPermission(Manifest.permission.RECEIVE_SMS);
         requestPermission(Manifest.permission.BROADCAST_SMS);
 
-        registerReceiver(new SmsReceiver(), new IntentFilter("android.provider.Telephony.SMS_RECEIVED"));
+        Intent intent = new Intent(this, SmsService.class);
+        startService(intent);
+
+        showAlert();
+        Log.d(TAG, "sendNotification");
+        sendNotification();
     }
 
     private void requestPermission(String permission) {
@@ -37,32 +42,17 @@ public class MainActivity extends AppCompatActivity {
                 permission)
                 != PackageManager.PERMISSION_GRANTED) {
 
-            // Should we show an explanation?
             Log.d(TAG, "ActivityCompat.shouldShowRequestPermissionRationale");
             if (ActivityCompat.shouldShowRequestPermissionRationale(this,
                     permission)) {
 
-                // Show an explanation to the user *asynchronously* -- don't block
-                // this thread waiting for the user's response! After the user
-                // sees the explanation, try again to request the permission.
-
             } else {
-
-                // No explanation needed, we can request the permission.
-
                 Log.d(TAG, "ActivityCompat.requestPermissions");
                 ActivityCompat.requestPermissions(this,
                         new String[]{permission},
                         123);
-
-                // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
-                // app-defined int constant. The callback method gets the
-                // result of the request.
             }
         }
-        Log.d(TAG, "sendNotification");
-        sendNotification();
-        showAlert();
     }
 
     @Override
@@ -77,7 +67,6 @@ public class MainActivity extends AppCompatActivity {
                         .setSmallIcon(R.drawable.ic_launcher)
                         .setContentTitle("My notification")
                         .setContentText("Hello World!");
-// Creates an explicit intent for an Activity in your app
         Intent resultIntent = new Intent(this, MainActivity.class);
 
 // The stack builder object will contain an artificial back stack for the
