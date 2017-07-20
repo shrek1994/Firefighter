@@ -8,6 +8,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.TaskStackBuilder;
 import android.support.v4.content.ContextCompat;
@@ -15,14 +17,25 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.NotificationCompat;
 import android.util.Log;
+import android.view.View;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
     static final String TAG = "MainActivity" ;
+    private DataReceiver dataReceiver = new DataReceiver();
+    private DataSender dataSender = new DataSender();
+
+    TextView textView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        textView = (TextView)findViewById(R.id.textView);
 
         requestPermission(Manifest.permission.RECEIVE_SMS);
         requestPermission(Manifest.permission.BROADCAST_SMS);
@@ -34,9 +47,37 @@ public class MainActivity extends AppCompatActivity {
 //        showAlert();
 //        Log.d(TAG, "sendNotification");
 //        sendNotification();
-        new DataSender().sendResponse(this);
+
     }
 
+    public void sendData(View v) {
+        dataSender.sendResponse();
+    }
+
+    public void startReceiving(View v) {
+        final Handler incomingMessageHandler = new Handler() {
+            @Override
+            public void handleMessage(Message msg) {
+                String message = msg.getData().getString("msg");
+                Date now = new Date();
+                SimpleDateFormat ft = new SimpleDateFormat ("hh:mm:ss");
+                Log.d("handleMessage", "[r] " + ft.format(now) + ' ' + message);
+                textView.setText(textView.getText() + message + "\n");
+                Toast.makeText(MainActivity.this,
+                        ft.format(now) + ' ' + message,
+                        Toast.LENGTH_LONG).show();
+            }
+        };
+        dataReceiver.subscribe(incomingMessageHandler);
+    }
+
+    public void stopReceiving(View v) {
+        dataReceiver.subscribeThread.interrupt();
+    }
+
+    public void clear(View v) {
+        textView.setText("");
+    }
     private void requestPermission(String permission) {
         Log.d(TAG, "ContextCompat.checkSelfPermission for " + permission);
         if (ContextCompat.checkSelfPermission(this,
@@ -54,12 +95,6 @@ public class MainActivity extends AppCompatActivity {
                         123);
             }
         }
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-
     }
 
     public void sendNotification() {

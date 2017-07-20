@@ -8,6 +8,8 @@ import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.concurrent.BlockingDeque;
 import java.util.concurrent.LinkedBlockingDeque;
 
@@ -19,12 +21,15 @@ public class DataSender {
     private static final String TAG = "DataSender";
     private BlockingDeque queue = new LinkedBlockingDeque();
     private ConnectionFactory factory = new ConnectionFactory();
+    private Thread publishThread;
 
 
-    public void sendResponse(Context context) {
+    public void sendResponse() {
         setupConnectionFactory();
-        publishMessage("hello jakubie! trzecia proba!");
-        publishToAMQP(context);
+        Date now = new Date();
+        SimpleDateFormat ft = new SimpleDateFormat ("hh:mm:ss");
+        publishMessage(ft.format(now) + ": hello jakubie!");
+        publishToAMQP();
     }
 
     void publishMessage(String message) {
@@ -50,8 +55,8 @@ public class DataSender {
 
     }
 
-    public void publishToAMQP(Context context) {
-        Thread publishThread = new Thread(new Runnable() {
+    public void publishToAMQP() {
+        publishThread = new Thread(new Runnable() {
             @Override
             public void run() {
                 while (true) {
