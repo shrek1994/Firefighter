@@ -55,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void startReceiving(View v) {
+        Log.d(TAG, "startReceiving");
         final Handler incomingMessageHandler = new Handler() {
             @Override
             public void handleMessage(Message msg) {
@@ -72,6 +73,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void stopReceiving(View v) {
+        Log.d(TAG, "stopReceiving");
         dataReceiver.subscribeThread.interrupt();
     }
 

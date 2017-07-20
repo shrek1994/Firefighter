@@ -68,7 +68,7 @@ public class DataSender {
                         while (true) {
                             String message = (String) queue.takeFirst();
                             try {
-                                ch.basicPublish("", "hello", null, message.getBytes());
+                                ch.basicPublish("amq.fanout", "hello", null, message.getBytes());
                                 Log.d(TAG, "[s] " + message);
                                 ch.waitForConfirmsOrDie();
                             } catch (Exception e) {
