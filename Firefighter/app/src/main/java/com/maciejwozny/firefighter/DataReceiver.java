@@ -38,6 +38,9 @@ public class DataReceiver {
     void subscribe(final Handler handler)
     {
         setupConnectionFactory();
+        if (subscribeThread != null) {
+            subscribeThread.interrupt();
+        }
         subscribeThread = new Thread(new Runnable() {
             @Override
             public void run() {
