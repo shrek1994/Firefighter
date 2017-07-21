@@ -20,7 +20,7 @@ public class SmsService  extends Service {
     public void onCreate()
     {
         super.onCreate();
-        Log.d(TAG, "service creating");
+        Log.i(TAG, "service creating");
 //        Toast.makeText(this, "service creating", Toast.LENGTH_SHORT).show();
 
         smsReceiver = new SmsReceiver();
@@ -32,7 +32,7 @@ public class SmsService  extends Service {
     @Override
     public void onDestroy()
     {
-        Log.d(TAG, "service onDestroy");
+        Log.i(TAG, "service onDestroy");
         super.onDestroy();
         unregisterReceiver(smsReceiver);
     }

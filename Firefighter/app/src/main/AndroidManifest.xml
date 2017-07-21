@@ -2,6 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.maciejwozny.firefighter">
 
+    <uses-permission android:name="android.permission.RECEIVE_SMS" />
+    <uses-permission android:name="android.permission.READ_SMS" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -10,16 +15,18 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <service android:name=".SmsService" />
+
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
         <!-- KitKat+ SMS receiver -->
         <receiver
-            android:name="com.maciejwozny.firefighter.SmsReceiver"
+            android:name=".SmsReceiver"
             android:enabled="@bool/hasKitKat"
             android:permission="android.permission.BROADCAST_SMS">
             <intent-filter>
@@ -29,16 +36,14 @@
 
         <!-- Pre-KitKat SMS receiver -->
         <receiver
-            android:name="com.maciejwozny.firefighter.SmsReceiverLegacy"
+            android:name=".SmsReceiverLegacy"
             android:enabled="@bool/preKitKat">
             <intent-filter>
                 <action android:name="android.provider.Telephony.SMS_RECEIVED" />
             </intent-filter>
         </receiver>
 
+        <activity android:name=".FireAlarmActivity"></activity>
     </application>
-    <uses-permission android:name="android.permission.RECEIVE_SMS" />
-    <uses-permission android:name="android.permission.READ_SMS" />
-    <uses-permission android:name="android.permission.INTERNET" />
 
 </manifest>

@@ -17,7 +17,9 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.NotificationCompat;
 import android.util.Log;
+import android.view.ContextThemeWrapper;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.CompoundButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -42,11 +44,12 @@ public class MainActivity extends AppCompatActivity {
         requestPermission(Manifest.permission.RECEIVE_SMS);
         requestPermission(Manifest.permission.BROADCAST_SMS);
         requestPermission(Manifest.permission.INTERNET);
+        requestPermission(Manifest.permission.SYSTEM_ALERT_WINDOW);
 
         Intent intent = new Intent(this, SmsService.class);
         startService(intent);
 
-//        showAlert();
+//        showAlert(this);
 //        Log.d(TAG, "sendNotification");
 //        sendNotification();
 
@@ -114,19 +117,19 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void sendNotification() {
+    public static void sendNotification(Context context) {
         NotificationCompat.Builder mBuilder =
-                (NotificationCompat.Builder) new NotificationCompat.Builder(this)
+                (NotificationCompat.Builder) new NotificationCompat.Builder(context)
                         .setSmallIcon(R.drawable.ic_launcher)
                         .setContentTitle("My notification")
                         .setContentText("Hello World!");
-        Intent resultIntent = new Intent(this, MainActivity.class);
+        Intent resultIntent = new Intent(context, MainActivity.class);
 
 // The stack builder object will contain an artificial back stack for the
 // started Activity.
 // This ensures that navigating backward from the Activity leads out of
 // your application to the Home screen.
-        TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
+        TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);
 // Adds the back stack for the Intent (but not the Intent itself)
         stackBuilder.addParentStack(MainActivity.class);
 // Adds the Intent that starts the Activity to the top of the stack
@@ -138,36 +141,12 @@ public class MainActivity extends AppCompatActivity {
                 );
         mBuilder.setContentIntent(resultPendingIntent);
         NotificationManager mNotificationManager =
-                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+                (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
 
 // mNotificationId is a unique integer your app uses to identify the
 // notification. For example, to cancel the notification, you can pass its ID
 // number to NotificationManager.cancel().
-        mNotificationManager.notify(001, mBuilder.build());
+        mNotificationManager.notify(1, mBuilder.build());
     }
 
-    public void showAlert() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage("Bierzesz udział w akcji?");
-        builder.setCancelable(true);
-
-        builder.setPositiveButton(
-                "Yes",
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        dialog.cancel();
-                    }
-                });
-
-        builder.setNegativeButton(
-                "No",
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        dialog.cancel();
-                    }
-                });
-
-        AlertDialog alert11 = builder.create();
-        alert11.show();
-    }
 }
