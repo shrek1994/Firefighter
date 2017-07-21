@@ -1,6 +1,7 @@
 package com.maciejwozny.firefighter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -18,6 +19,7 @@ import java.util.concurrent.LinkedBlockingDeque;
  */
 
 public class DataSender {
+    private Integer senderCount = 0;
     private static final String TAG = "DataSender";
     private BlockingDeque queue = new LinkedBlockingDeque();
     private ConnectionFactory factory = new ConnectionFactory();
@@ -27,12 +29,13 @@ public class DataSender {
     public void sendResponse() {
         setupConnectionFactory();
         Date now = new Date();
-        SimpleDateFormat ft = new SimpleDateFormat ("hh:mm:ss");
-        publishMessage(ft.format(now) + ": hello jakubie!");
+        SimpleDateFormat ft = new SimpleDateFormat ("hh:mm:ss.SSS aa");
+        senderCount++;
+        publishMessage("[s-" + ft.format(now) + "]: test " + senderCount.toString());
         publishToAMQP();
     }
 
-    void publishMessage(String message) {
+    private void publishMessage(String message) {
         try {
             Log.d(TAG,"[q] " + message);
             queue.putLast(message);
@@ -55,7 +58,7 @@ public class DataSender {
 
     }
 
-    public void publishToAMQP() {
+    private void publishToAMQP() {
         publishThread = new Thread(new Runnable() {
             @Override
             public void run() {

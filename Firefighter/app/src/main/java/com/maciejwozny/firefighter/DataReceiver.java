@@ -17,8 +17,6 @@ import com.rabbitmq.client.QueueingConsumer;
 public class DataReceiver {
     private ConnectionFactory factory = new ConnectionFactory();
     Thread subscribeThread;
-
-
     private static final String TAG = "DataReceiver";
 
     private void setupConnectionFactory() {

@@ -18,8 +18,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.NotificationCompat;
 import android.util.Log;
 import android.view.View;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -48,6 +50,19 @@ public class MainActivity extends AppCompatActivity {
 //        Log.d(TAG, "sendNotification");
 //        sendNotification();
 
+        startReceiving(null);
+
+        ToggleButton toggleButton = (ToggleButton)findViewById(R.id.recevingButton);
+        toggleButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    startReceiving(buttonView);
+                } else {
+                    stopReceiving(buttonView);
+                }
+            }
+        });
     }
 
     public void sendData(View v) {
@@ -61,9 +76,9 @@ public class MainActivity extends AppCompatActivity {
             public void handleMessage(Message msg) {
                 String message = msg.getData().getString("msg");
                 Date now = new Date();
-                SimpleDateFormat ft = new SimpleDateFormat ("hh:mm:ss");
+                SimpleDateFormat ft = new SimpleDateFormat ("hh:mm:ss.SSS aa");
                 Log.d("handleMessage", "[r] " + ft.format(now) + ' ' + message);
-                textView.setText(textView.getText() + message + "\n");
+                textView.setText(textView.getText()+ "[r-" + ft.format(now) +"]"+message + "\n");
                 Toast.makeText(MainActivity.this,
                         ft.format(now) + ' ' + message,
                         Toast.LENGTH_LONG).show();
