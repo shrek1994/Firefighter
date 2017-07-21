@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void startReceiving(View v) {
-        Log.d(TAG, "startReceiving");
+        Log.v(TAG, "startReceiving");
         final Handler incomingMessageHandler = new Handler() {
             @Override
             public void handleMessage(Message msg) {
@@ -88,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void stopReceiving(View v) {
-        Log.d(TAG, "stopReceiving");
+        Log.v(TAG, "stopReceiving");
         dataReceiver.subscribeThread.interrupt();
     }
 
@@ -101,12 +101,12 @@ public class MainActivity extends AppCompatActivity {
                 permission)
                 != PackageManager.PERMISSION_GRANTED) {
 
-            Log.d(TAG, "ActivityCompat.shouldShowRequestPermissionRationale");
+            Log.v(TAG, "ActivityCompat.shouldShowRequestPermissionRationale");
             if (ActivityCompat.shouldShowRequestPermissionRationale(this,
                     permission)) {
 
             } else {
-                Log.d(TAG, "ActivityCompat.requestPermissions");
+                Log.v(TAG, "ActivityCompat.requestPermissions");
                 ActivityCompat.requestPermissions(this,
                         new String[]{permission},
                         123);

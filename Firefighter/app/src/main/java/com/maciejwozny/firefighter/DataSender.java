@@ -1,9 +1,6 @@
 package com.maciejwozny.firefighter;
 
-import android.content.Context;
-import android.content.Intent;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
@@ -47,11 +44,11 @@ public class DataSender {
     private void setupConnectionFactory() {
         String uri = "amqp://156.17.134.59";
         try {
-            Log.d(TAG,"setAutomaticRecoveryEnabled");
+            Log.v(TAG,"setAutomaticRecoveryEnabled");
             factory.setAutomaticRecoveryEnabled(false);
-            Log.d(TAG,"setUri("+uri+")");
+            Log.v(TAG,"setUri("+uri+")");
             factory.setUri(uri);
-            Log.d(TAG,"DONE!");
+            Log.v(TAG,"DONE!");
         } catch (Exception e1) {
             e1.printStackTrace();
         }
@@ -72,10 +69,10 @@ public class DataSender {
                             String message = (String) queue.takeFirst();
                             try {
                                 ch.basicPublish("amq.fanout", "hello", null, message.getBytes());
-                                Log.d(TAG, "[s] " + message);
+                                Log.d(TAG, "[send] " + message);
                                 ch.waitForConfirmsOrDie();
                             } catch (Exception e) {
-                                Log.d(TAG, "[f] " + message);
+                                Log.w(TAG, "[fail] " + message);
                                 queue.putFirst(message);
                                 throw e;
                             }
@@ -83,13 +80,13 @@ public class DataSender {
                     } catch (InterruptedException e) {
                         break;
                     } catch (Exception e) {
-                        Log.d(TAG, "Connection broken: " + e.getClass().getName()
+                        Log.w(TAG, "Connection broken: " + e.getClass().getName()
                                 + ", " + e.getMessage());
                         e.printStackTrace();
                         try {
                             Thread.sleep(5000); //sleep and then try again
                         } catch (InterruptedException e1) {
-                            Log.d(TAG, "Sleep broken: " + e.getClass().getName() + ", " + e.getMessage());
+                            Log.w(TAG, "Sleep broken: " + e.getClass().getName() + ", " + e.getMessage());
                             break;
                         }
                     }

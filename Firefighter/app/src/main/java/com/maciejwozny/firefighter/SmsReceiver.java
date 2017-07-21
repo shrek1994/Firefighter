@@ -11,8 +11,6 @@ import android.support.v4.app.NotificationCompat;
 import android.telephony.SmsManager;
 import android.telephony.SmsMessage;
 import android.util.Log;
-import android.view.View;
-import android.widget.Toast;
 
 /**
  * Created by maciek on 08.06.17.
@@ -54,7 +52,7 @@ public class SmsReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         Log.d(TAG, "received sms");
-        Toast.makeText(context, "received sms", Toast.LENGTH_SHORT).show();
+//        Toast.makeText(context, "received sms", Toast.LENGTH_SHORT).show();
         // Retrieves a map of extended data from the intent.
         final Bundle bundle = intent.getExtras();
         try {
@@ -72,10 +70,10 @@ public class SmsReceiver extends BroadcastReceiver {
 
 
                     // Show Alert
-                    int duration = Toast.LENGTH_LONG;
-                    Toast toast = Toast.makeText(context,
-                            "senderNum: "+ senderNum + ", message: " + message, duration);
-                    toast.show();
+//                    int duration = Toast.LENGTH_LONG;
+//                    Toast toast = Toast.makeText(context,
+//                            "senderNum: "+ senderNum + ", message: " + message, duration);
+//                    toast.show();
                 } // end for loop
             } // bundle is null
 

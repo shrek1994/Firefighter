@@ -22,11 +22,11 @@ public class DataReceiver {
     private void setupConnectionFactory() {
         String uri = "amqp://156.17.134.59";
         try {
-            Log.d(TAG,"setAutomaticRecoveryEnabled");
+            Log.v(TAG,"setAutomaticRecoveryEnabled");
             factory.setAutomaticRecoveryEnabled(false);
-            Log.d(TAG,"setUri("+uri+")");
+            Log.v(TAG,"setUri("+uri+")");
             factory.setUri(uri);
-            Log.d(TAG,"DONE!");
+            Log.v(TAG,"DONE!");
         } catch (Exception e1) {
             e1.printStackTrace();
         }
@@ -55,7 +55,7 @@ public class DataReceiver {
                         while (true) {
                             QueueingConsumer.Delivery delivery = consumer.nextDelivery();
                             String message = new String(delivery.getBody());
-                            Log.d(TAG,"[r] " + message);
+                            Log.d(TAG,"[recv] " + message);
                             Message msg = handler.obtainMessage();
                             Bundle bundle = new Bundle();
                             bundle.putString("msg", message);
@@ -65,7 +65,7 @@ public class DataReceiver {
                     } catch (InterruptedException e) {
                         break;
                     } catch (Exception e1) {
-                        Log.d(TAG, "Connection broken: " + e1.getClass().getName());
+                        Log.w(TAG, "Connection broken: " + e1.getClass().getName());
                         e1.printStackTrace();
                         try {
                             Thread.sleep(5000); //sleep and then try again
