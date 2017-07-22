@@ -117,12 +117,12 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public static void sendNotification(Context context) {
+    public static void sendNotification(Context context, String title, String text) {
         NotificationCompat.Builder mBuilder =
                 (NotificationCompat.Builder) new NotificationCompat.Builder(context)
                         .setSmallIcon(R.drawable.ic_launcher)
-                        .setContentTitle("My notification")
-                        .setContentText("Hello World!");
+                        .setContentTitle(title)
+                        .setContentText(text);
         Intent resultIntent = new Intent(context, MainActivity.class);
 
 // The stack builder object will contain an artificial back stack for the

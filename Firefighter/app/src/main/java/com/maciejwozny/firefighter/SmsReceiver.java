@@ -42,7 +42,7 @@ public class SmsReceiver extends BroadcastReceiver {
                     toast.show();
 
 
-                    MainActivity.sendNotification(context);
+                    MainActivity.sendNotification(context, senderNum, message);
 
                     Intent newIntent = new Intent(context, FireAlarmActivity.class);
                     newIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
