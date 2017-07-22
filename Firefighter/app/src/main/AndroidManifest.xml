@@ -16,7 +16,7 @@
         android:theme="@style/AppTheme">
         <service android:name=".SmsService" />
 
-        <activity android:name=".MainActivity">
+        <activity android:name=".TestingActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

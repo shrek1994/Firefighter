@@ -30,5 +30,7 @@ public class FireAlarmActivityTest {
         onView(withText(R.string.no)).check(matches(isDisplayed()));
 
         onView(withText(R.string.yes)).perform(click());
+
+        onView(withText(R.string.confirmJoining)).check(matches(isDisplayed()));
     }
 }

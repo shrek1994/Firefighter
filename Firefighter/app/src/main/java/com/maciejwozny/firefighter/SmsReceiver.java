@@ -1,6 +1,5 @@
 package com.maciejwozny.firefighter;
 
-import android.app.Service;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -42,7 +41,7 @@ public class SmsReceiver extends BroadcastReceiver {
                     toast.show();
 
 
-                    MainActivity.sendNotification(context, senderNum, message);
+                    TestingActivity.sendNotification(context, senderNum, message);
 
                     Intent newIntent = new Intent(context, FireAlarmActivity.class);
                     newIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

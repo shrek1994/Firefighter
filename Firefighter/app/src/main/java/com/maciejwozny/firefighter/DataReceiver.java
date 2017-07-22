@@ -63,19 +63,24 @@ public class DataReceiver {
                             handler.sendMessage(msg);
                         }
                     } catch (InterruptedException e) {
+                        sleep(5000);
                         break;
-                    } catch (Exception e1) {
-                        Log.w(TAG, "Connection broken: " + e1.getClass().getName());
-                        e1.printStackTrace();
-                        try {
-                            Thread.sleep(5000); //sleep and then try again
-                        } catch (InterruptedException e) {
-                            break;
-                        }
+                    } catch (Exception e) {
+                        Log.w(TAG, "Connection broken: " + e.getClass().getName());
+                        e.printStackTrace();
+                        sleep(5000); //sleep and then try again
                     }
                 }
             }
         });
         subscribeThread.start();
+    }
+
+    private void sleep(long millis) {
+        try {
+            Thread.sleep(millis);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 }

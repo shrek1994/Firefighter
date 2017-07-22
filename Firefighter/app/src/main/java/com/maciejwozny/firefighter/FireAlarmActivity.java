@@ -25,8 +25,8 @@ public class FireAlarmActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
+    protected void onStart() {
+        super.onStart();
         showAlert(this);
     }
 
@@ -57,6 +57,12 @@ public class FireAlarmActivity extends AppCompatActivity {
         {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        mediaPlayer.stop();
     }
 
 

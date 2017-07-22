@@ -3,4 +3,5 @@
     <string name="doYouJoinToAction">Do you want to join to action?</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
+    <string name="confirmJoining">Confirm joining</string>
 </resources>

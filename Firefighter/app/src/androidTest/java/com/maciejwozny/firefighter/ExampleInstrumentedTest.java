@@ -14,13 +14,7 @@ import org.junit.runner.RunWith;
 
 import java.math.BigInteger;
 
-import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
-import static android.support.test.espresso.assertion.ViewAssertions.matches;
-import static android.support.test.espresso.intent.Intents.intending;
-import static android.support.test.espresso.intent.matcher.IntentMatchers.toPackage;
-import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
-import static android.support.test.espresso.matcher.ViewMatchers.withClassName;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static org.junit.Assert.*;
@@ -38,8 +32,8 @@ public class ExampleInstrumentedTest {
 
 
     @Rule
-    public final ActivityTestRule<MainActivity> rule =
-            new ActivityTestRule<>(MainActivity.class, true, false);
+    public final ActivityTestRule<TestingActivity> rule =
+            new ActivityTestRule<>(TestingActivity.class, true, false);
 
     @Test
     public void useAppContext() throws Exception {

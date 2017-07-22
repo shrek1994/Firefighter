@@ -4,7 +4,6 @@ import android.Manifest;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -13,13 +12,10 @@ import android.os.Message;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.TaskStackBuilder;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.NotificationCompat;
 import android.util.Log;
-import android.view.ContextThemeWrapper;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.CompoundButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -28,8 +24,8 @@ import android.widget.ToggleButton;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class MainActivity extends AppCompatActivity {
-    static final String TAG = "MainActivity" ;
+public class TestingActivity extends AppCompatActivity {
+    static final String TAG = "TestingActivity" ;
     private DataReceiver dataReceiver = new DataReceiver();
     private DataSender dataSender = new DataSender();
 
@@ -82,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
                 SimpleDateFormat ft = new SimpleDateFormat ("hh:mm:ss.SSS aa");
                 Log.d("handleMessage", "[r] " + ft.format(now) + ' ' + message);
                 textView.setText(textView.getText()+ "[r-" + ft.format(now) +"]"+message + "\n");
-                Toast.makeText(MainActivity.this,
+                Toast.makeText(TestingActivity.this,
                         ft.format(now) + ' ' + message,
                         Toast.LENGTH_LONG).show();
             }
@@ -123,7 +119,7 @@ public class MainActivity extends AppCompatActivity {
                         .setSmallIcon(R.drawable.ic_launcher)
                         .setContentTitle(title)
                         .setContentText(text);
-        Intent resultIntent = new Intent(context, MainActivity.class);
+        Intent resultIntent = new Intent(context, TestingActivity.class);
 
 // The stack builder object will contain an artificial back stack for the
 // started Activity.
@@ -131,7 +127,7 @@ public class MainActivity extends AppCompatActivity {
 // your application to the Home screen.
         TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);
 // Adds the back stack for the Intent (but not the Intent itself)
-        stackBuilder.addParentStack(MainActivity.class);
+        stackBuilder.addParentStack(TestingActivity.class);
 // Adds the Intent that starts the Activity to the top of the stack
         stackBuilder.addNextIntent(resultIntent);
         PendingIntent resultPendingIntent =
@@ -147,6 +143,12 @@ public class MainActivity extends AppCompatActivity {
 // notification. For example, to cancel the notification, you can pass its ID
 // number to NotificationManager.cancel().
         mNotificationManager.notify(1, mBuilder.build());
+    }
+
+    public void initFireAlarmActivity(View viev) {
+        Context context = viev.getContext();
+        Intent newIntent = new Intent(context, FireAlarmActivity.class);
+        context.startActivity(newIntent);
     }
 
 }
