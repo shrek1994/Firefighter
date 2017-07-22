@@ -50,9 +50,9 @@ public class SmsReceiver extends BroadcastReceiver {
 
                     sendNotification(context, senderNum, message);
 
-                    Intent newIntent = new Intent(context, FireAlarmActivity.class);
-                    newIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    context.startActivity(newIntent);
+                    Intent fireAlarm = new Intent(context, FireAlarmActivity.class);
+                    fireAlarm.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    context.startActivity(fireAlarm);
                 } // end for loop
             } // bundle is null
 

@@ -10,6 +10,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.WindowManager;
 
 import org.json.JSONException;
 
@@ -18,26 +19,21 @@ import java.io.IOException;
 public class FireAlarmActivity extends AppCompatActivity {
     private static final String TAG = "FireAlarmActivity";
     private MediaPlayer mediaPlayer;
+    private AlertDialog alert;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.d(TAG, "onCreate");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fire_alarm);
-        playAlarmWithRingVolume(this);
     }
 
     @Override
     protected void onStart() {
+        Log.d(TAG, "onStart");
         super.onStart();
         showAlert(this);
-    }
-
-    private void playAlarm(Context context) {
-        Log.d(TAG, "play Alarm");
-        mediaPlayer = MediaPlayer.create(context, R.raw.fire);
-        mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-        mediaPlayer.setLooping(true);
-        mediaPlayer.start();
+        playAlarmWithRingVolume(this);
     }
 
     private void playAlarmWithRingVolume(Context context) {
@@ -45,7 +41,7 @@ public class FireAlarmActivity extends AppCompatActivity {
         AudioManager am = (AudioManager)getSystemService(Context.AUDIO_SERVICE);
         am.setMode(AudioManager.MODE_NORMAL);
         mediaPlayer = new MediaPlayer();
-        Uri ringtoneUri = Uri.parse("android.resource://"+getPackageName()+"/" + R.raw.fire);
+        Uri ringtoneUri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.fire);
         try {
             mediaPlayer.setDataSource(getApplicationContext(), ringtoneUri);
             mediaPlayer.setAudioStreamType(AudioManager.STREAM_RING);
@@ -59,8 +55,15 @@ public class FireAlarmActivity extends AppCompatActivity {
 
     @Override
     protected void onStop() {
+        Log.d(TAG, "onStop");
         super.onStop();
         mediaPlayer.stop();
+    }
+
+    @Override
+    public void onAttachedToWindow() {
+        Log.d(TAG, "onAttachedToWindow");
+        this.getWindow().addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED);
     }
 
 
@@ -98,7 +101,10 @@ public class FireAlarmActivity extends AppCompatActivity {
                     }
                 });
 
-        AlertDialog alert = builder.create();
-        alert.show();
+        if (alert == null || ! alert.isShowing()) {
+            alert = builder.create();
+            alert.show();
+            Log.d(TAG, "alert.show()");
+        }
     }
 }
