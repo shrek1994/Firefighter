@@ -17,7 +17,7 @@ import android.widget.Toast;
  * Created by maciek on 08.06.17.
  */
 public class SmsReceiver extends BroadcastReceiver {
-    final static String TAG = "SmsReceiver";
+    private final static String TAG = "SmsReceiver";
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -28,24 +28,22 @@ public class SmsReceiver extends BroadcastReceiver {
         try {
             if (bundle != null) {
                 final Object[] pdus = (Object[]) bundle.get("pdus");
-                for (int i = 0; i < pdus.length; i++) {
+                for (Object pdu : pdus) {
                     SmsMessage currentMessage;
                     if (Build.VERSION.SDK_INT < 23) {
-                        currentMessage = SmsMessage.createFromPdu((byte[]) pdus[i]);
+                        currentMessage = SmsMessage.createFromPdu((byte[]) pdu);
                     } else {
-                        currentMessage = SmsMessage.createFromPdu((byte[]) pdus[i], format);
+                        currentMessage = SmsMessage.createFromPdu((byte[]) pdu, format);
                     }
-                    String  phoneNumber = currentMessage.getDisplayOriginatingAddress();
-
-                    String senderNum = phoneNumber;
+                    String senderNum = currentMessage.getDisplayOriginatingAddress();
                     String message = currentMessage.getDisplayMessageBody();
 
-                    Log.i("SmsReceiver", "senderNum: "+ senderNum + "; message: " + message);
+                    Log.i("SmsReceiver", "senderNum: " + senderNum + "; message: " + message);
 
                     // Show Alert
                     int duration = Toast.LENGTH_LONG;
                     Toast toast = Toast.makeText(context,
-                            "senderNum: "+ senderNum + ", message: " + message, duration);
+                            "senderNum: " + senderNum + ", message: " + message, duration);
                     toast.show();
 
                     sendNotification(context, senderNum, message);

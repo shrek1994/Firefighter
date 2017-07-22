@@ -10,16 +10,13 @@ import org.joda.time.format.ISODateTimeFormat;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Locale;
 import java.util.concurrent.BlockingDeque;
 import java.util.concurrent.LinkedBlockingDeque;
 
 /**
  * Created by maciek on 20.07.17.
  */
-
 public class DataSender {
     private Integer senderCount = 0;
     private static final String TAG = "DataSender";
@@ -56,7 +53,7 @@ public class DataSender {
         sendResponse("[send-" + nowTime + "]: test " + senderCount.toString());
     }
 
-    public void sendResponse(String txt) {
+    private void sendResponse(String txt) {
         publishMessage(txt);
         publishToAMQP();
     }

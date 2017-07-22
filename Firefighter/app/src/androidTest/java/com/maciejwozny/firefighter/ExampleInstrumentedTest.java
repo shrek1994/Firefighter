@@ -14,9 +14,6 @@ import org.junit.runner.RunWith;
 
 import java.math.BigInteger;
 
-import static android.support.test.espresso.action.ViewActions.click;
-import static android.support.test.espresso.matcher.ViewMatchers.withId;
-import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static org.junit.Assert.*;
 
 /**
@@ -26,8 +23,8 @@ import static org.junit.Assert.*;
  */
 @RunWith(AndroidJUnit4.class)
 public class ExampleInstrumentedTest {
-    public static final String FORMAT_3GPP = "3gpp"; // TODO change to SmsMessage.FORMAT_3GPP
-    public static final String SUBSCRIPTION_KEY  = "subscription";
+    private static final String FORMAT_3GPP = "3gpp"; // TODO change to SmsMessage.FORMAT_3GPP
+    private static final String SUBSCRIPTION_KEY  = "subscription";
     //TODO change with PhoneConstants.SUBSCRIPTION_KEY
 
 

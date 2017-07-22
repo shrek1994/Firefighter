@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
-import android.media.RingtoneManager;
 import android.net.Uri;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -14,7 +13,6 @@ import android.view.WindowManager;
 
 import org.json.JSONException;
 
-import java.io.IOException;
 
 public class FireAlarmActivity extends AppCompatActivity {
     private static final String TAG = "FireAlarmActivity";
@@ -84,6 +82,7 @@ public class FireAlarmActivity extends AppCompatActivity {
                             e.printStackTrace();
                         }
                         dialog.cancel();
+                        FireAlarmActivity.this.finish();
                     }
                 });
 
@@ -98,6 +97,7 @@ public class FireAlarmActivity extends AppCompatActivity {
                             e.printStackTrace();
                         }
                         dialog.cancel();
+                        FireAlarmActivity.this.finish();
                     }
                 });
 

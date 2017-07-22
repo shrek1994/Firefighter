@@ -1,8 +1,6 @@
 package com.maciejwozny.firefighter;
 
 import android.Manifest;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -10,10 +8,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.TaskStackBuilder;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.app.NotificationCompat;
 import android.util.Log;
 import android.view.View;
 import android.widget.CompoundButton;
@@ -22,10 +18,7 @@ import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import org.joda.time.format.ISODateTimeFormat;
-
-import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Locale;
 
 public class TestingActivity extends AppCompatActivity {
     static final String TAG = "TestingActivity" ;
@@ -100,14 +93,11 @@ public class TestingActivity extends AppCompatActivity {
                 != PackageManager.PERMISSION_GRANTED) {
 
             Log.v(TAG, "ActivityCompat.shouldShowRequestPermissionRationale");
-            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
-                    permission)) {
-
-            } else {
-                Log.v(TAG, "ActivityCompat.requestPermissions");
-                ActivityCompat.requestPermissions(this,
-                        new String[]{permission},
-                        123);
+            if (!ActivityCompat.shouldShowRequestPermissionRationale(this, permission)) {
+                        Log.v(TAG, "ActivityCompat.requestPermissions");
+                        ActivityCompat.requestPermissions(this,
+                                new String[]{permission},
+                                123);
             }
         }
     }
