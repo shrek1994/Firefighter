@@ -6,8 +6,12 @@ import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 import java.util.concurrent.BlockingDeque;
 import java.util.concurrent.LinkedBlockingDeque;
 
@@ -22,13 +26,29 @@ public class DataSender {
     private ConnectionFactory factory = new ConnectionFactory();
     private Thread publishThread;
 
+    public DataSender() {
+        setupConnectionFactory();
+    }
+
+    public void sendActionResponse(Participation participation) throws JSONException {
+        JSONObject json = new JSONObject();
+        JSONObject response = new JSONObject();
+        response.put("user", "loginName");
+        response.put("participation", participation.toString());
+        json.put("response", response);
+        sendResponse(json.toString());
+    }
+
 
     public void sendResponse() {
-        setupConnectionFactory();
         Date now = new Date();
-        SimpleDateFormat ft = new SimpleDateFormat ("hh:mm:ss.SSS aa");
+        SimpleDateFormat ft = new SimpleDateFormat("hh:mm:ss.SSS", Locale.GERMAN);
         senderCount++;
-        publishMessage("[s-" + ft.format(now) + "]: test " + senderCount.toString());
+        sendResponse("[s-" + ft.format(now) + "]: test " + senderCount.toString());
+    }
+
+    public void sendResponse(String txt) {
+        publishMessage(txt);
         publishToAMQP();
     }
 

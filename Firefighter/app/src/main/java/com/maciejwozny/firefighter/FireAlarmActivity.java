@@ -11,6 +11,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 
+import org.json.JSONException;
+
 import java.io.IOException;
 
 public class FireAlarmActivity extends AppCompatActivity {
@@ -44,17 +46,13 @@ public class FireAlarmActivity extends AppCompatActivity {
         am.setMode(AudioManager.MODE_NORMAL);
         mediaPlayer = new MediaPlayer();
         Uri ringtoneUri = Uri.parse("android.resource://"+getPackageName()+"/" + R.raw.fire);
-//        Uri ringtoneUri = RingtoneManager.getDefaultUri(R.raw.fire);
-        try
-        {
+        try {
             mediaPlayer.setDataSource(getApplicationContext(), ringtoneUri);
             mediaPlayer.setAudioStreamType(AudioManager.STREAM_RING);
             mediaPlayer.setLooping(true);
             mediaPlayer.prepare();
             mediaPlayer.start();
-        }
-        catch(Exception e)
-        {
+        } catch(Exception e) {
             e.printStackTrace();
         }
     }
@@ -77,6 +75,11 @@ public class FireAlarmActivity extends AppCompatActivity {
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         mediaPlayer.stop();
+                        try {
+                            new DataSender().sendActionResponse(Participation.yes);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                         dialog.cancel();
                     }
                 });
@@ -86,6 +89,11 @@ public class FireAlarmActivity extends AppCompatActivity {
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         mediaPlayer.stop();
+                        try {
+                            new DataSender().sendActionResponse(Participation.no);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                         dialog.cancel();
                     }
                 });

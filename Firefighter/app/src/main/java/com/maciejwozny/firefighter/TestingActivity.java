@@ -42,12 +42,8 @@ public class TestingActivity extends AppCompatActivity {
         requestPermission(Manifest.permission.INTERNET);
         requestPermission(Manifest.permission.SYSTEM_ALERT_WINDOW);
 
-        Intent intent = new Intent(this, SmsService.class);
-        startService(intent);
-
-//        showAlert(this);
-//        Log.d(TAG, "sendNotification");
-//        sendNotification();
+        Intent smsService = new Intent(this, SmsService.class);
+        startService(smsService);
 
         startReceiving(null);
 
@@ -111,38 +107,6 @@ public class TestingActivity extends AppCompatActivity {
                         123);
             }
         }
-    }
-
-    public static void sendNotification(Context context, String title, String text) {
-        NotificationCompat.Builder mBuilder =
-                (NotificationCompat.Builder) new NotificationCompat.Builder(context)
-                        .setSmallIcon(R.drawable.ic_launcher)
-                        .setContentTitle(title)
-                        .setContentText(text);
-        Intent resultIntent = new Intent(context, TestingActivity.class);
-
-// The stack builder object will contain an artificial back stack for the
-// started Activity.
-// This ensures that navigating backward from the Activity leads out of
-// your application to the Home screen.
-        TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);
-// Adds the back stack for the Intent (but not the Intent itself)
-        stackBuilder.addParentStack(TestingActivity.class);
-// Adds the Intent that starts the Activity to the top of the stack
-        stackBuilder.addNextIntent(resultIntent);
-        PendingIntent resultPendingIntent =
-                stackBuilder.getPendingIntent(
-                        0,
-                        PendingIntent.FLAG_UPDATE_CURRENT
-                );
-        mBuilder.setContentIntent(resultPendingIntent);
-        NotificationManager mNotificationManager =
-                (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-
-// mNotificationId is a unique integer your app uses to identify the
-// notification. For example, to cancel the notification, you can pass its ID
-// number to NotificationManager.cancel().
-        mNotificationManager.notify(1, mBuilder.build());
     }
 
     public void initFireAlarmActivity(View viev) {
