@@ -39,17 +39,19 @@ public class FireAlarmActivity extends AppCompatActivity {
     }
 
     private void playAlarmWithRingVolume(Context context) {
+        Log.d(TAG, "playAlarmWithRingVolume");
         AudioManager am = (AudioManager)getSystemService(Context.AUDIO_SERVICE);
         am.setMode(AudioManager.MODE_NORMAL);
-        MediaPlayer mp = new MediaPlayer();
+        mediaPlayer = new MediaPlayer();
         Uri ringtoneUri = Uri.parse("android.resource://"+getPackageName()+"/" + R.raw.fire);
 //        Uri ringtoneUri = RingtoneManager.getDefaultUri(R.raw.fire);
         try
         {
-            mp.setDataSource(getApplicationContext(), ringtoneUri);
-            mp.setAudioStreamType(AudioManager.STREAM_RING);
-            mp.prepare();
-            mp.start();
+            mediaPlayer.setDataSource(getApplicationContext(), ringtoneUri);
+            mediaPlayer.setAudioStreamType(AudioManager.STREAM_RING);
+            mediaPlayer.setLooping(true);
+            mediaPlayer.prepare();
+            mediaPlayer.start();
         }
         catch(Exception e)
         {
