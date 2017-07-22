@@ -21,8 +21,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
+import org.joda.time.format.ISODateTimeFormat;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 public class TestingActivity extends AppCompatActivity {
     static final String TAG = "TestingActivity" ;
@@ -70,12 +73,12 @@ public class TestingActivity extends AppCompatActivity {
             @Override
             public void handleMessage(Message msg) {
                 String message = msg.getData().getString("msg");
-                Date now = new Date();
-                SimpleDateFormat ft = new SimpleDateFormat ("hh:mm:ss.SSS aa");
-                Log.d("handleMessage", "[r] " + ft.format(now) + ' ' + message);
-                textView.setText(textView.getText()+ "[r-" + ft.format(now) +"]"+message + "\n");
+                String now = ISODateTimeFormat.hourMinuteSecondMillis().print(new Date().getTime());
+                Log.d("handleMessage",
+                        "[recv] "  + now + ' ' + message);
+                textView.setText(textView.getText()+ "[recv-" + now +"]" + message + "\n");
                 Toast.makeText(TestingActivity.this,
-                        ft.format(now) + ' ' + message,
+                        now + ' ' + message,
                         Toast.LENGTH_LONG).show();
             }
         };

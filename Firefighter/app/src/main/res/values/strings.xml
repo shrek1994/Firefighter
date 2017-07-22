@@ -1,7 +1,7 @@
 <resources>
-    <string name="app_name">Firefighter</string>
+    <string name="app_name">E-Firefighter</string>
     <string name="doYouJoinToAction">Do you want to join to action?</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
-    <string name="confirmJoining">Confirm joining</string>
+    <string name="confirmedJoining">Confirmed joining</string>
 </resources>

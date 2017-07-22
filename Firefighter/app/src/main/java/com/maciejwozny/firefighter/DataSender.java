@@ -6,6 +6,7 @@ import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
 
+import org.joda.time.format.ISODateTimeFormat;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -31,20 +32,28 @@ public class DataSender {
     }
 
     public void sendActionResponse(Participation participation) throws JSONException {
+        final String userName = "loginName";
+        long dateTime = new Date().getTime();
+        String nowTime = ISODateTimeFormat.dateTime().print(dateTime);
+
         JSONObject json = new JSONObject();
         JSONObject response = new JSONObject();
-        response.put("user", "loginName");
-        response.put("participation", participation.toString());
+
+        response.put("time", dateTime);
+        response.put("time (human readable)", nowTime);
+        response.put("user", userName);
+        response.put("participation", participation);
+
         json.put("response", response);
+
         sendResponse(json.toString());
     }
 
 
     public void sendResponse() {
-        Date now = new Date();
-        SimpleDateFormat ft = new SimpleDateFormat("hh:mm:ss.SSS", Locale.GERMAN);
+        String nowTime = ISODateTimeFormat.hourMinuteSecondMillis().print(new Date().getTime());
         senderCount++;
-        sendResponse("[s-" + ft.format(now) + "]: test " + senderCount.toString());
+        sendResponse("[send-" + nowTime + "]: test " + senderCount.toString());
     }
 
     public void sendResponse(String txt) {
