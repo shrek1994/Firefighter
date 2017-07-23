@@ -71,7 +71,6 @@ public class FireAlarmActivity extends AppCompatActivity {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setMessage(R.string.doYouJoinToAction);
         builder.setCancelable(true);
-
         builder.setPositiveButton(
                 R.string.yes,
                 new DialogInterface.OnClickListener() {
@@ -104,6 +103,7 @@ public class FireAlarmActivity extends AppCompatActivity {
 
         if (alert == null || ! alert.isShowing()) {
             alert = builder.create();
+            alert.setCanceledOnTouchOutside(false);
             alert.show();
             Log.d(TAG, "alert.show()");
         }
