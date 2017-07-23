@@ -20,10 +20,18 @@ public class FireAlarmActivity extends AppCompatActivity {
     private AlertDialog alert;
 
     @Override
+    public void onAttachedToWindow() {
+        Log.d(TAG, "onAttachedToWindow");
+        this.getWindow().addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED);
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log.d(TAG, "onCreate");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fire_alarm);
+        FlashingView flashingView = (FlashingView)findViewById(R.id.flashingView);
+        flashingView.initFlashing();
     }
 
     @Override
@@ -31,10 +39,17 @@ public class FireAlarmActivity extends AppCompatActivity {
         Log.d(TAG, "onStart");
         super.onStart();
         showAlert(this);
-        playAlarmWithRingVolume(this);
+        playAlarmWithRingVolume();
     }
 
-    private void playAlarmWithRingVolume(Context context) {
+    @Override
+    protected void onStop() {
+        Log.d(TAG, "onStop");
+        super.onStop();
+        mediaPlayer.stop();
+    }
+
+    private void playAlarmWithRingVolume() {
         Log.d(TAG, "playAlarmWithRingVolume");
         AudioManager am = (AudioManager)getSystemService(Context.AUDIO_SERVICE);
         am.setMode(AudioManager.MODE_NORMAL);
@@ -50,20 +65,6 @@ public class FireAlarmActivity extends AppCompatActivity {
             e.printStackTrace();
         }
     }
-
-    @Override
-    protected void onStop() {
-        Log.d(TAG, "onStop");
-        super.onStop();
-        mediaPlayer.stop();
-    }
-
-    @Override
-    public void onAttachedToWindow() {
-        Log.d(TAG, "onAttachedToWindow");
-        this.getWindow().addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED);
-    }
-
 
     private void showAlert(Context context) {
         Log.d(TAG, "show Alert");

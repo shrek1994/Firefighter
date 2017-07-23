@@ -55,19 +55,6 @@ public class ExampleInstrumentedTest {
 
         rule.launchActivity(intent);
 
-//        rule.runOnUiThread(new Runnable() {
-//            @Override
-//            public void run() {
-//                receiveSmsBroadcastReceiver.onReceive(InstrumentationRegistry.getTargetContext(), intent);
-//            }
-//        });
-//
-//        onView(withText(R.string.doYouJoinToAction)).check(matches(isDisplayed()));
-//        onView(withText(R.string.yes)).check(matches(isDisplayed()));
-//        onView(withText(R.string.no)).check(matches(isDisplayed()));
-//
-//        onView(withText(R.string.yes)).perform(click());
-
         Intents.release();
     }
 }

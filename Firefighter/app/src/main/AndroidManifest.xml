@@ -43,7 +43,7 @@
             </intent-filter>
         </receiver>
 
-        <activity android:name=".FireAlarmActivity"></activity>
+        <activity android:name=".FireAlarmActivity"/>
     </application>
 
 </manifest>
