@@ -4,4 +4,8 @@
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="confirmedJoining">Confirmed joining</string>
+
+    <string name="title_activity_fullscreen">FullscreenActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
 </resources>

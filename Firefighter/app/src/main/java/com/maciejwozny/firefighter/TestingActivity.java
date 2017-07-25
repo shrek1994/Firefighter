@@ -27,6 +27,11 @@ public class TestingActivity extends AppCompatActivity {
 
     TextView textView;
 
+    public void test(View v) {
+        Intent intent = new Intent(this, FireAlarmActivity.class);
+        startActivity(intent);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

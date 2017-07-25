@@ -1,24 +1,22 @@
 package com.maciejwozny.firefighter;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
-import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.util.Log;
+import android.view.Window;
 import android.view.WindowManager;
 
 import org.json.JSONException;
 
-/**
- * An example full-screen activity that shows and hides the system UI (i.e.
- * status bar and navigation/system bar) with user interaction.
- */
-public class FireAlarmActivity extends Activity {
-    private static final String TAG = "FireAlarmActivity";
+
+public class FireAlarmActivityLegacy extends AppCompatActivity {
+    private static final String TAG = "FireAlarmActivityLegacy";
     private MediaPlayer mediaPlayer;
     private AlertDialog alert;
 
@@ -30,11 +28,14 @@ public class FireAlarmActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        setContentView(R.layout.activity_fullscreen);
+        Log.d(TAG, "onCreate");
+
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_fire_alarm);
         FlashingView flashingView = (FlashingView)findViewById(R.id.flashingView);
         flashingView.initFlashing();
     }
@@ -65,7 +66,7 @@ public class FireAlarmActivity extends Activity {
             mediaPlayer.setAudioStreamType(AudioManager.STREAM_RING);
             mediaPlayer.setLooping(true);
             mediaPlayer.prepare();
-            mediaPlayer.start();
+//            mediaPlayer.start();
         } catch(Exception e) {
             e.printStackTrace();
         }
@@ -87,7 +88,7 @@ public class FireAlarmActivity extends Activity {
                             e.printStackTrace();
                         }
                         dialog.cancel();
-                        FireAlarmActivity.this.finish();
+                        FireAlarmActivityLegacy.this.finish();
                     }
                 });
 
@@ -102,7 +103,7 @@ public class FireAlarmActivity extends Activity {
                             e.printStackTrace();
                         }
                         dialog.cancel();
-                        FireAlarmActivity.this.finish();
+                        FireAlarmActivityLegacy.this.finish();
                     }
                 });
 
@@ -110,10 +111,7 @@ public class FireAlarmActivity extends Activity {
             alert = builder.create();
             alert.setCanceledOnTouchOutside(false);
             alert.show();
-            alert.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
             Log.d(TAG, "alert.show()");
         }
     }
-
-
 }
