@@ -52,12 +52,10 @@ public class FlashingView extends View {
         int width = canvas.getWidth();
         int height = canvas.getHeight();
         if (isRed) {
-            Log.d(TAG, "Blue");
             canvas.drawRect(0, 0, width, height, BLUE);
             isRed = false;
         }
         else {
-            Log.d(TAG, "Red");
             canvas.drawRect(0, 0, width, height, RED);
             isRed = true;
         }

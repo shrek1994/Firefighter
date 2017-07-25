@@ -2,6 +2,7 @@ package com.maciejwozny.firefighter;
 
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.app.Service;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -18,11 +19,15 @@ import android.widget.Toast;
  */
 public class SmsReceiver extends BroadcastReceiver {
     private final static String TAG = "SmsReceiver";
+    private Service service;
+
+    public SmsReceiver(Service service) {
+        this.service = service;
+    }
 
     @Override
     public void onReceive(Context context, Intent intent) {
         Log.d(TAG, "received sms");
-        // Retrieves a map of extended data from the intent.
         final Bundle bundle = intent.getExtras();
         String format = intent.getStringExtra("format");
         try {
@@ -40,20 +45,18 @@ public class SmsReceiver extends BroadcastReceiver {
 
                     Log.i("SmsReceiver", "senderNum: " + senderNum + "; message: " + message);
 
-                    // Show Alert
-                    int duration = Toast.LENGTH_LONG;
-                    Toast toast = Toast.makeText(context,
-                            "senderNum: " + senderNum + ", message: " + message, duration);
-                    toast.show();
+//                    Toast.makeText(service,
+//                                   "senderNum: " + senderNum + ", message: " + message,
+//                                   Toast.LENGTH_LONG).show();
 
-                    sendNotification(context, senderNum, message);
+//                    sendNotification(service, senderNum, message);
 
-                    Intent fireAlarm = new Intent(context, FireAlarmActivity.class);
+                    Intent fireAlarm = new Intent(service, FireAlarmActivity.class);
                     fireAlarm.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    context.startActivity(fireAlarm);
-                } // end for loop
-            } // bundle is null
-
+                    fireAlarm.putExtra("MESSAGE_EXTRA", message);
+                    service.startActivity(fireAlarm);
+                }
+            }
         } catch (Exception e) {
             Log.e(TAG, e.toString());
             e.printStackTrace();

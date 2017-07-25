@@ -11,27 +11,23 @@ import android.util.Log;
  * Created by maciek on 20.07.17.
  */
 
-public class SmsService  extends Service {
+public class SmsService extends Service {
     private static final String TAG = "SmsService";
-    private SmsReceiver smsReceiver;
+    private SmsReceiver smsReceiver  = new SmsReceiver(this);
     private IntentFilter intentFilter;
 
     @Override
-    public void onCreate()
-    {
+    public void onCreate() {
         super.onCreate();
         Log.i(TAG, "service creating");
-//        Toast.makeText(this, "service creating", Toast.LENGTH_SHORT).show();
 
-        smsReceiver = new SmsReceiver();
         intentFilter = new IntentFilter();
         intentFilter.addAction("android.provider.Telephony.SMS_RECEIVED");
         registerReceiver(smsReceiver, intentFilter);
     }
 
     @Override
-    public void onDestroy()
-    {
+    public void onDestroy() {
         Log.i(TAG, "service onDestroy");
         super.onDestroy();
         unregisterReceiver(smsReceiver);
@@ -40,8 +36,6 @@ public class SmsService  extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log.d(TAG, "service starting");
-//        Toast.makeText(this, "service starting", Toast.LENGTH_SHORT).show();
-
         // If we get killed, after returning from here, restart
         return START_STICKY;
     }

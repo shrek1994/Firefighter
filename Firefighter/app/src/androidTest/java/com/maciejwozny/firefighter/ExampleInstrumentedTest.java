@@ -6,6 +6,7 @@ import android.support.test.InstrumentationRegistry;
 import android.support.test.espresso.intent.Intents;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
+import android.test.mock.MockContext;
 
 
 import org.junit.Rule;
@@ -14,6 +15,8 @@ import org.junit.runner.RunWith;
 
 import java.math.BigInteger;
 
+import static android.support.test.espresso.intent.Intents.intended;
+import static android.support.test.espresso.intent.matcher.IntentMatchers.toPackage;
 import static org.junit.Assert.*;
 
 /**
@@ -27,6 +30,7 @@ public class ExampleInstrumentedTest {
     private static final String SUBSCRIPTION_KEY  = "subscription";
     //TODO change with PhoneConstants.SUBSCRIPTION_KEY
 
+    private Context context = new MockContext();
 
     @Rule
     public final ActivityTestRule<TestingActivity> rule =
@@ -46,7 +50,7 @@ public class ExampleInstrumentedTest {
 
         final byte[] decodedPDU =
                 new BigInteger("1100038155f50000aa0ae8329bfdbebfe56c32", 16).toByteArray();
-        final SmsReceiver receiveSmsBroadcastReceiver = new SmsReceiver();
+//        final SmsReceiver receiveSmsBroadcastReceiver = new SmsReceiver();
         final Intent intent = new Intent();
         intent.putExtra("format", FORMAT_3GPP);
         intent.putExtra("pdus", new Object[]{decodedPDU});
@@ -54,6 +58,9 @@ public class ExampleInstrumentedTest {
         intent.putExtra(SUBSCRIPTION_KEY, 1);
 
         rule.launchActivity(intent);
+//        receiveSmsBroadcastReceiver.onReceive(context, intent);
+
+        intended(toPackage("com.maciejwozny.firefighter.FireAlarmActivity"));
 
         Intents.release();
     }
