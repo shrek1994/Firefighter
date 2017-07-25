@@ -43,7 +43,6 @@
             </intent-filter>
         </receiver>
 
-        <activity android:name=".FireAlarmActivityLegacy"/>
         <activity
             android:name=".FireAlarmActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"

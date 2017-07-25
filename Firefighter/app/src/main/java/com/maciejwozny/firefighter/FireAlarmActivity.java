@@ -30,7 +30,7 @@ public class FireAlarmActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        setContentView(R.layout.activity_fullscreen);
+        setContentView(R.layout.activity_fire_alarm);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
