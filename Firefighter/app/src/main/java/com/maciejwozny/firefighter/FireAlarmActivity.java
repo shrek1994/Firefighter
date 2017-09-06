@@ -11,6 +11,9 @@ import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.WindowManager;
 
+import com.maciejwozny.firefighter.Model.Communication.DataSender;
+import com.maciejwozny.firefighter.Model.Communication.Participation;
+
 import org.json.JSONException;
 
 /**

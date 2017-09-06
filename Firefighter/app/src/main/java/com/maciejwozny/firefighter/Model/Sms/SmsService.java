@@ -1,4 +1,4 @@
-package com.maciejwozny.firefighter;
+package com.maciejwozny.firefighter.Model.Sms;
 
 import android.app.Service;
 import android.content.Intent;
@@ -7,11 +7,13 @@ import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
+import com.maciejwozny.firefighter.Model.Sms.SmsReceiver;
+
 /**
  * Created by maciek on 20.07.17.
  */
 
-public class SmsService extends Service {
+public class SmsService extends Service implements ISmsService {
     private static final String TAG = "SmsService";
     private SmsReceiver smsReceiver  = new SmsReceiver(this);
     private IntentFilter intentFilter;

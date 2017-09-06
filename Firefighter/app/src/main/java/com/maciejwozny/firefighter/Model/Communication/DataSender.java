@@ -1,4 +1,4 @@
-package com.maciejwozny.firefighter;
+package com.maciejwozny.firefighter.Model.Communication;
 
 import android.util.Log;
 
@@ -17,7 +17,7 @@ import java.util.concurrent.LinkedBlockingDeque;
 /**
  * Created by maciek on 20.07.17.
  */
-public class DataSender {
+public class DataSender implements IDataSender {
     private Integer senderCount = 0;
     private static final String TAG = "DataSender";
     private BlockingDeque queue = new LinkedBlockingDeque();
@@ -28,6 +28,7 @@ public class DataSender {
         setupConnectionFactory();
     }
 
+    @Override
     public void sendActionResponse(Participation participation) throws JSONException {
         final String userName = "loginName";
         long dateTime = new Date().getTime();
@@ -47,6 +48,7 @@ public class DataSender {
     }
 
 
+    @Override
     public void sendResponse() {
         String nowTime = ISODateTimeFormat.hourMinuteSecondMillis().print(new Date().getTime());
         senderCount++;

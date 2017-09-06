@@ -1,4 +1,4 @@
-package com.maciejwozny.firefighter;
+package com.maciejwozny.firefighter.Model;
 
 /**
  * Created by maciek on 25.07.17.

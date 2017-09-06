@@ -1,4 +1,4 @@
-package com.maciejwozny.firefighter;
+package com.maciejwozny.firefighter.Model.Communication;
 
 import android.os.Bundle;
 import android.os.Handler;
@@ -14,9 +14,9 @@ import com.rabbitmq.client.QueueingConsumer;
 /**
  * Created by maciek on 20.07.17.
  */
-public class DataReceiver {
+public class DataReceiver implements IDataReceiver {
     private ConnectionFactory factory = new ConnectionFactory();
-    Thread subscribeThread;
+    private Thread subscribeThread;
     private static final String TAG = "DataReceiver";
 
     private void setupConnectionFactory() {
@@ -33,7 +33,7 @@ public class DataReceiver {
 
     }
 
-    void subscribe(final Handler handler)
+    public void subscribe(final Handler handler)
     {
         setupConnectionFactory();
         if (subscribeThread != null) {
@@ -74,6 +74,11 @@ public class DataReceiver {
             }
         });
         subscribeThread.start();
+    }
+
+    public void interrupt()
+    {
+        subscribeThread.interrupt();
     }
 
     private void sleep(long millis) {

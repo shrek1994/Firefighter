@@ -7,7 +7,9 @@ import android.os.Bundle;
 import android.telephony.SmsMessage;
 import android.widget.Toast;
 
-import org.junit.After;
+import com.maciejwozny.firefighter.Model.Sms.ISmsReceiver;
+import com.maciejwozny.firefighter.Model.Sms.SmsReceiver;
+
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -47,7 +49,7 @@ public class SmsReceiverTest {
     @Mock Toast toast;
     @Mock Intent nextIntent;
 
-    private SmsReceiver receiveSmsBroadcastReceiver;
+    private ISmsReceiver receiveSmsBroadcastReceiver;
 
     @Before
     public void before() {

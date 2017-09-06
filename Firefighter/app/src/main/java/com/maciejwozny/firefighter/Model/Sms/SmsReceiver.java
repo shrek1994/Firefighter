@@ -1,4 +1,4 @@
-package com.maciejwozny.firefighter;
+package com.maciejwozny.firefighter.Model.Sms;
 
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -12,12 +12,15 @@ import android.support.v4.app.TaskStackBuilder;
 import android.support.v7.app.NotificationCompat;
 import android.telephony.SmsMessage;
 import android.util.Log;
-import android.widget.Toast;
+
+import com.maciejwozny.firefighter.FireAlarmActivity;
+import com.maciejwozny.firefighter.R;
+import com.maciejwozny.firefighter.TestingActivity;
 
 /**
  * Created by maciek on 08.06.17.
  */
-public class SmsReceiver extends BroadcastReceiver {
+public class SmsReceiver extends BroadcastReceiver implements ISmsReceiver {
     private final static String TAG = "SmsReceiver";
     private Service service;
 

@@ -14,7 +14,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <service android:name=".SmsService" />
+        <service android:name=".Model.Sms.SmsService" />
 
         <activity android:name=".TestingActivity">
             <intent-filter>
@@ -26,7 +26,7 @@
 
         <!-- KitKat+ SMS receiver -->
         <receiver
-            android:name=".SmsReceiver"
+            android:name=".Model.Sms.SmsReceiver"
             android:enabled="@bool/hasKitKat"
             android:permission="android.permission.BROADCAST_SMS">
             <intent-filter>
@@ -36,7 +36,7 @@
 
         <!-- Pre-KitKat SMS receiver -->
         <receiver
-            android:name=".SmsReceiverLegacy"
+            android:name=".Model.Sms.SmsReceiverLegacy"
             android:enabled="@bool/preKitKat">
             <intent-filter>
                 <action android:name="android.provider.Telephony.SMS_RECEIVED" />

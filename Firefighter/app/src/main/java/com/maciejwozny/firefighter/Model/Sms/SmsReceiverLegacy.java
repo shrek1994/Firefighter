@@ -1,4 +1,4 @@
-package com.maciejwozny.firefighter;
+package com.maciejwozny.firefighter.Model.Sms;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -12,7 +12,7 @@ import android.widget.Toast;
  * Created by maciek on 08.06.17.
  */
 
-public class SmsReceiverLegacy extends BroadcastReceiver {
+public class SmsReceiverLegacy extends BroadcastReceiver implements ISmsReceiverLegacy {
     private final static String TAG = "SmsReceiverLegacy";
 
     @Override
